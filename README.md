@@ -1,3 +1,25 @@
+# Event Budget AI
+
+A full-stack web application that analyzes past event spending from uploaded `.csv` or `.xlsx` files and recommends future event budgets using simple data analysis logic.
+
+## Features
+
+- Upload `.csv` or `.xlsx` files with event spending data
+- Optionally include a message to influence the suggestion
+- Flask backend (Python) processes and analyzes the data
+- React + Vite frontend (TypeScript) for a fast, responsive UI
+- CORS-secure communication between frontend and backend
+
+## Tech Stack
+
+- Frontend: React, TypeScript, Vite
+- Backend: Python, Flask, Pandas
+- Deployment-ready on platforms like Render, Vercel, or GCP
+
+## Upload Format
+
+Make sure your file includes a column named!
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
