@@ -11,6 +11,9 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = Flask(__name__)
 CORS(app)
+@app.route("/", methods=["GET"])
+def home():
+    return {"message": "Event Budget AI Backend is live!"}
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
