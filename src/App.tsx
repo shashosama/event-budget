@@ -26,7 +26,7 @@ function App() {
 
     // Works for both local and deployed use cases
     const backendUrl = import.meta.env.PROD
-  ? "https://event-budget-backend.onrender.com/upload"
+  ? "https://event-budget-backend.onrender.com"
   : "http://localhost:5000/upload";
 
     try {
