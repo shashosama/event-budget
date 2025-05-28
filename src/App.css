@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .container {
   max-width: 600px;
   margin: 50px auto;
@@ -56,11 +57,10 @@ body {
   border: none;
   outline: none;
   font-size: 1rem;
-  background-color: #FFFDE7; /* beige input background */
+  background-color: #FFFDE7;
   color: #333;
   font-family: 'Times New Roman', Times, serif;
 }
-
 
 .chat-submit {
   background-color: #b780ce;
@@ -73,7 +73,7 @@ body {
 }
 
 .chat-submit:hover {
-  background-color: #b780ce;
+  background-color: #a169bc;
 }
 
 .response {
@@ -82,4 +82,5 @@ body {
   background: #4e3c58;
   padding: 1rem;
   border-radius: 0.5rem;
+  color: white;
 }

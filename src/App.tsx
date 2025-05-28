@@ -1,16 +1,11 @@
+// src/App.tsx
 import { useState, useRef } from 'react';
 import './App.css';
-import UploadForm from "./UploadForm";
-
-
 
 type ApiResponse = {
   message?: string;
-  suggestion?: {
-    event: string;
-    budget: number;
-    note?: string | null;
-  };
+  suggestion?: string; // Since OpenAI returns formatted text
+  budget?: number;
   error?: string;
 };
 
@@ -23,36 +18,35 @@ function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return alert("Please upload a file.");
-  
+
     const formData = new FormData();
     formData.append('file', file);
     formData.append('message', message);
-  
-    const backendUrl = "http://127.0.0.1:5000/upload";
-  
+
+    // Works for both local and deployed use cases
+    const backendUrl = `http://${window.location.hostname}:5000/upload`;
+
     try {
       const res = await fetch(backendUrl, {
         method: 'POST',
         body: formData,
       });
-  
-      // ✅ Handle invalid JSON responses gracefully
+
       const text = await res.text();
       try {
-        const data = JSON.parse(text);
+        const data: ApiResponse = JSON.parse(text);
         setResponse(data);
       } catch (jsonErr) {
         console.error("JSON Parse Error:", jsonErr);
         console.error("Raw response:", text);
         setResponse({ error: "Invalid response from server." });
       }
-  
+
     } catch (err) {
       console.error("Upload error:", err);
       setResponse({ error: "Failed to connect to the backend." });
     }
   };
-  
 
   return (
     <div className="container">
@@ -65,7 +59,7 @@ function App() {
           </button>
           <input
             type="file"
-            accept=".csv,.xlsx"
+            accept=".csv"
             ref={fileInputRef}
             onChange={(e) => setFile(e.target.files?.[0] || null)}
             className="hidden"
@@ -81,7 +75,7 @@ function App() {
             onChange={(e) => setMessage(e.target.value)}
             className="chat-input"
           />
-          <button type="submit" className="chat-submit">submit</button>
+          <button type="submit" className="chat-submit">Submit</button>
         </div>
       </form>
 
@@ -91,7 +85,7 @@ function App() {
           {response.error ? (
             <p style={{ color: 'red' }}>{response.error}</p>
           ) : (
-            <pre>{JSON.stringify(response, null, 2)}</pre>
+            <pre>{response.suggestion}</pre>
           )}
         </div>
       )}
