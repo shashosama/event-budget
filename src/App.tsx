@@ -25,10 +25,7 @@ function App() {
     formData.append('message', message);
 
     // Works for both local and deployed use cases
-    const backendUrl = import.meta.env.PROD
-  ? "https://event-budget-backend.onrender.com/upload"
-  : "http://localhost:5000/upload";
-
+    const backendUrl = "https://event-budget-backend.onrender.com/upload";
     try {
       const res = await fetch(backendUrl, {
         method: 'POST',
