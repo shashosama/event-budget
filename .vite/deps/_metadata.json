@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "hash": "b06617d1",
   "configHash": "ab05d8b8",
   "lockfileHash": "addd211f",
@@ -28,4 +29,12 @@
       "file": "chunk-Y455YYDO.js"
     }
   }
+=======
+  "hash": "cdb2ee4b",
+  "configHash": "ab05d8b8",
+  "lockfileHash": "34b70564",
+  "browserHash": "8ce3fa69",
+  "optimized": {},
+  "chunks": {}
+>>>>>>> c746ea1 (Reinitialize project with frontend and backend)
 }

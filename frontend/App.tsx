@@ -1,12 +1,13 @@
-// src/App.tsx
 import { useState, useRef } from 'react';
 import './App.css';
-import React from 'react';
 
 type ApiResponse = {
   message?: string;
-  suggestion?: string; // Since OpenAI returns formatted text
-  budget?: number;
+  suggestion?: {
+    event: string;
+    budget: number;
+    note?: string | null;
+  };
   error?: string;
 };
 
@@ -24,8 +25,7 @@ function App() {
     formData.append('file', file);
     formData.append('message', message);
 
-    // Works for both local and deployed use cases
-    const backendUrl = `http://${window.location.hostname}:5000/upload`;
+    const backendUrl = "http://127.0.0.1:5000/upload";
 
     try {
       const res = await fetch(backendUrl, {
@@ -35,7 +35,7 @@ function App() {
 
       const text = await res.text();
       try {
-        const data: ApiResponse = JSON.parse(text);
+        const data = JSON.parse(text);
         setResponse(data);
       } catch (jsonErr) {
         console.error("JSON Parse Error:", jsonErr);
@@ -55,12 +55,16 @@ function App() {
 
       <form onSubmit={handleSubmit} className="chat-form">
         <div className="upload-wrapper">
-          <button type="button" onClick={() => fileInputRef.current?.click()} className="upload-button">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="upload-button"
+          >
             +
           </button>
           <input
             type="file"
-            accept=".csv"
+            accept=".csv,.xlsx"
             ref={fileInputRef}
             onChange={(e) => setFile(e.target.files?.[0] || null)}
             className="hidden"
@@ -76,7 +80,7 @@ function App() {
             onChange={(e) => setMessage(e.target.value)}
             className="chat-input"
           />
-          <button type="submit" className="chat-submit">Submit</button>
+          <button type="submit" className="chat-submit">submit</button>
         </div>
       </form>
 
@@ -86,7 +90,7 @@ function App() {
           {response.error ? (
             <p style={{ color: 'red' }}>{response.error}</p>
           ) : (
-            <pre>{response.suggestion}</pre>
+            <pre>{JSON.stringify(response, null, 2)}</pre>
           )}
         </div>
       )}
