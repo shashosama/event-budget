@@ -17,7 +17,7 @@ def home():
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
-    print("🔵 /upload was hit")
+    print("/upload was hit")
     file = request.files.get("file")
     message = request.form.get("message", "")
 
