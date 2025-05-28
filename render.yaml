@@ -2,21 +2,13 @@ services:
   - type: web
     name: event-budget-backend
     env: python
-<<<<<<< HEAD
     region: oregon
     plan: free
-=======
->>>>>>> b944286 (commit)
     buildCommand: pip install -r requirements.txt
     startCommand: python app.py
     envVars:
       - key: OPENAI_API_KEY
         sync: false
-<<<<<<< HEAD
-    rootDir: backend
-=======
-    plan: free
-    region: oregon
     rootDir: backend
 
   - type: web
@@ -28,4 +20,3 @@ services:
     plan: free
     region: oregon
     rootDir: src
->>>>>>> b944286 (commit)
