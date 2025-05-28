@@ -1,12 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
-import openai
 import os
 from dotenv import load_dotenv
+from openai import OpenAI
 
+# Load environment variables
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = Flask(__name__)
 CORS(app)
@@ -30,14 +31,15 @@ def upload_file():
             f"Suggest a creative event idea that fits this budget. Include the event name, a short description, and a basic cost breakdown."
         )
 
-        completion = openai.ChatCompletion.create(
+        # ✅ Updated OpenAI API usage
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}]
         )
 
         return jsonify({
             "message": "Success",
-            "suggestion": completion.choices[0].message.content.strip(),
+            "suggestion": response.choices[0].message.content.strip(),
             "budget": round(avg_spend, 2)
         })
 
@@ -50,4 +52,3 @@ if __name__ == "__main__":
 =======
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
->>>>>>> c746ea1 (Reinitialize project with frontend and backend)

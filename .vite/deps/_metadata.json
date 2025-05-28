@@ -1,4 +1,6 @@
 {
+
+
   "hash": "b06617d1",
   "configHash": "ab05d8b8",
   "lockfileHash": "addd211f",
@@ -27,5 +29,30 @@
     "chunk-Y455YYDO": {
       "file": "chunk-Y455YYDO.js"
     }
+  },
+
+  "hash": "b06617d1",
+  "configHash": "ab05d8b8",
+  "lockfileHash": "addd211f",
+  "browserHash": "7772f776",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "c733796b",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "d3828b8d",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-Y455YYDO": {
+      "file": "chunk-Y455YYDO.js"
+    }
   }
+
 }
