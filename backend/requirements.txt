@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 annotated-types==0.7.0
 anyio==4.9.0
 blinker==1.9.0
@@ -31,10 +31,10 @@ typing-inspection==0.4.1
 typing_extensions==4.13.2
 tzdata==2025.2
 Werkzeug==3.1.3
-=======
+
 flask
 flask-cors
 pandas
 python-dotenv
 openai>=1.0.0
->>>>>>> b944286 (commit)
+
