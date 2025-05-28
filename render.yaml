@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: event-budget-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+    rootDir: backend
