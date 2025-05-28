@@ -1,6 +1,12 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
+import openai
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load .env file
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
 CORS(app)
@@ -16,15 +22,26 @@ def upload_file():
     try:
         df = pd.read_csv(file)
         avg_spend = df["Amount"].mean() if "Amount" in df.columns else 0
-        suggestion = {
-            "event": "Team Lunch",
-            "budget": round(avg_spend, 2),
-            "note": f"Based on your message: '{message}'" if message else None
-        }
-        return jsonify({"message": "Success", "suggestion": suggestion})
+
+        prompt = (
+            f"You are an AI event planner. A user uploaded past expense data. "
+            f"The average spend is ${avg_spend:.2f}. The user says: '{message}'. "
+            f"Suggest a creative event idea that fits this budget. Include the event name, a short description, and a basic cost breakdown."
+        )
+
+        completion = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        return jsonify({
+            "message": "Success",
+            "suggestion": completion.choices[0].message.content.strip(),
+            "budget": round(avg_spend, 2)
+        })
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    print("Server started")
     app.run(host="0.0.0.0", port=5000, debug=True)

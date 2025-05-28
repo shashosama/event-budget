@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react';
 import './App.css';
+import UploadForm from "./UploadForm";
+
+
 
 type ApiResponse = {
   message?: string;
@@ -20,28 +23,36 @@ function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return alert("Please upload a file.");
-
+  
     const formData = new FormData();
     formData.append('file', file);
     formData.append('message', message);
-
-    
-    const backendUrl = `http://${window.location.hostname}:5000/upload`;
-
+  
+    const backendUrl = "http://127.0.0.1:5000/upload";
+  
     try {
-      const res = await fetch('/upload', {
+      const res = await fetch(backendUrl, {
         method: 'POST',
         body: formData,
       });
-      
-
-      const data = await res.json();
-      setResponse(data);
+  
+      // ✅ Handle invalid JSON responses gracefully
+      const text = await res.text();
+      try {
+        const data = JSON.parse(text);
+        setResponse(data);
+      } catch (jsonErr) {
+        console.error("JSON Parse Error:", jsonErr);
+        console.error("Raw response:", text);
+        setResponse({ error: "Invalid response from server." });
+      }
+  
     } catch (err) {
       console.error("Upload error:", err);
       setResponse({ error: "Failed to connect to the backend." });
     }
   };
+  
 
   return (
     <div className="container">
