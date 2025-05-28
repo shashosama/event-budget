@@ -7,7 +7,9 @@ from openai import OpenAI
 
 # Load environment variables
 load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+print("Loaded API Key:", openai.api_key)  # Should not be None
 
 app = Flask(__name__)
 CORS(app)
